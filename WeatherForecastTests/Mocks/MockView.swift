@@ -9,7 +9,7 @@ import Foundation
 @testable import WeatherForecast
 
 class MockView: WeatherForecastViewProtocol {
-    var weatherData: [WeatherForecastItem] = []
+    var weatherData: [WeatherForecastDisplay] = []
     var hasError: Bool = false
     var presenter: WeatherForecastPresenter
     
@@ -17,7 +17,7 @@ class MockView: WeatherForecastViewProtocol {
         self.presenter = presenter
     }
     
-    func showWeatherForecastData(_ data: [WeatherForecastItem]) {
+    func showWeatherForecastData(_ data: [WeatherForecastDisplay]) {
         self.weatherData = data
     }
     

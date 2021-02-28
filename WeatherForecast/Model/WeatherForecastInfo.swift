@@ -24,10 +24,8 @@ class WeatherForecastItem: Codable {
     let dateInterval: TimeInterval
     let pressure: Int
     let humidity: Int
-    let averageTemp: Double
-    let description: String
-    private let temperature: Temperature
-    private let weatherItems: [Weather]
+    let weatherItems: [Weather]
+    let temperature: Temperature
     
     enum WeatherForecastItemKeys: String, CodingKey {
         case dateInterval = "dt"
@@ -44,9 +42,6 @@ class WeatherForecastItem: Codable {
         self.humidity = try parentContainer.decode(Int.self, forKey: .humidity)
         self.weatherItems = try parentContainer.decode([Weather].self, forKey: .weather)
         self.temperature = try parentContainer.decode(Temperature.self, forKey: .temperature)
-        
-        self.averageTemp =  ((self.temperature.max + self.temperature.min) / 2.0).rounded(.toNearestOrEven)
-        self.description = self.weatherItems.compactMap({ $0.description }).joined(separator: ", ")
     }
         
     func encode(to encoder: Encoder) throws {

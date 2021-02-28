@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001B021425EBD9D500280E13 /* ConstantString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B021325EBD9D500280E13 /* ConstantString.swift */; };
+		001B021825EBDA4D00280E13 /* WeatherForecastDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B021725EBDA4D00280E13 /* WeatherForecastDisplay.swift */; };
 		002CCE5B25E95BFE003BF332 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002CCE5925E95BFE003BF332 /* MainNavigationController.swift */; };
 		002CCE5C25E95BFE003BF332 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002CCE5A25E95BFE003BF332 /* Navigator.swift */; };
 		002CCE6025E95D80003BF332 /* WeatherForecastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002CCE5F25E95D80003BF332 /* WeatherForecastPresenter.swift */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		001B021325EBD9D500280E13 /* ConstantString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantString.swift; sourceTree = "<group>"; };
+		001B021725EBDA4D00280E13 /* WeatherForecastDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastDisplay.swift; sourceTree = "<group>"; };
 		002CCE5925E95BFE003BF332 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		002CCE5A25E95BFE003BF332 /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		002CCE5F25E95D80003BF332 /* WeatherForecastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastPresenter.swift; sourceTree = "<group>"; };
@@ -221,6 +225,8 @@
 				009D711625E8B49C0067E7B5 /* Response.swift */,
 				009D711925E8B4B50067E7B5 /* ResponseError.swift */,
 				009D711C25E8B7B50067E7B5 /* Decoder.swift */,
+				001B021325EBD9D500280E13 /* ConstantString.swift */,
+				001B021725EBDA4D00280E13 /* WeatherForecastDisplay.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				009D711425E82B280067E7B5 /* DateFormatterHelper.swift in Sources */,
 				002CCE5B25E95BFE003BF332 /* MainNavigationController.swift in Sources */,
 				009D711A25E8B4B50067E7B5 /* ResponseError.swift in Sources */,
+				001B021425EBD9D500280E13 /* ConstantString.swift in Sources */,
 				002CCE5C25E95BFE003BF332 /* Navigator.swift in Sources */,
 				009D711125E82AE80067E7B5 /* WeatherForecastInfo.swift in Sources */,
 				009D70FE25E80B7A0067E7B5 /* UITableView+Reusable.swift in Sources */,
@@ -428,6 +435,7 @@
 				002CCEB725E96F0C003BF332 /* WeatherForecastService.swift in Sources */,
 				009D70E125E808440067E7B5 /* AppDelegate.swift in Sources */,
 				009D711D25E8B7B50067E7B5 /* Decoder.swift in Sources */,
+				001B021825EBDA4D00280E13 /* WeatherForecastDisplay.swift in Sources */,
 				002CCEAD25E96B69003BF332 /* ProviderType.swift in Sources */,
 				002CCEB425E96C74003BF332 /* Target.swift in Sources */,
 				002CCED325EA1AF2003BF332 /* CacheService.swift in Sources */,

@@ -50,10 +50,11 @@ class WeatherForecastPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.hasError)
         
         let item = mockView.weatherData[0]
-        XCTAssertTrue(item.dateInterval == 1614402000)
-        XCTAssertTrue(item.humidity == 39)
-        XCTAssertTrue(item.pressure == 1008)
-        XCTAssertEqual(item.description, "sky is clear")
+        XCTAssertEqual(item.formattedDate, "Date: Sat, 27 Feb 2021")
+        XCTAssertEqual(item.formattedHumidity, "Humidity: 39%")
+        XCTAssertEqual(item.formattedPressure, "Pressure: 1008")
+        XCTAssertEqual(item.formattedDescription, "Description: sky is clear")
+        XCTAssertEqual(item.formattedAverageTemp, "Average Temperature: 29ºC")
     }
 
     func test_searchWeatherForecast_noData() {

@@ -42,6 +42,7 @@ class WeatherForecastDetailCell: UITableViewCell, Reusable {
             label.adjustsFontSizeToFitWidth = true
             label.minimumScaleFactor = 0.7
             label.font = UIFont.preferredFont(forTextStyle: .body)
+            label.adjustsFontForContentSizeCategory = true
         }
         
         descriptionLabel.numberOfLines = 0
@@ -77,16 +78,11 @@ class WeatherForecastDetailCell: UITableViewCell, Reusable {
     }
 
     
-    func setWeatherForecastData(_ data: WeatherForecastItem) {
-        let timeStr = DateFormatterHelper.stringForDateInterval(
-            timeIntervalSince1970: data.dateInterval,
-            format: "EEE, dd MMM yyyy",
-            timeIntervalType: .seconds
-        )
-        dateLabel.text = "Date: " + timeStr
-        averageTempLabel.text = "Average Temperature: \(data.averageTemp)°C"
-        pressureLabel.text = "Pressure: \(data.pressure)"
-        humidityLabel.text = "Humidity: \(data.humidity)%"
-        descriptionLabel.text = "Description: \(data.description)"
+    func setWeatherForecastData(_ data: WeatherForecastDisplay) {
+        dateLabel.text = data.formattedDate
+        averageTempLabel.text = data.formattedAverageTemp
+        pressureLabel.text = data.formattedPressure
+        humidityLabel.text = data.formattedHumidity
+        descriptionLabel.text = data.formattedDescription
     }
 }

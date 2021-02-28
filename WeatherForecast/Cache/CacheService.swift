@@ -19,9 +19,7 @@ class WeatherForecastCache: CacheService {
     
     func setObject<T>(_ object: T, forKey key: String) where T : Codable {
         let data = try! encoder.encode(object)
-        PINCache.shared.memoryCache.setTtl(true)
-        PINCache.shared.diskCache.setTtl(true)
-        PINCache.shared.setObject(data, forKey: key, withAgeLimit: 36)
+        PINCache.shared.setObject(data, forKey: key)
     }
     
     func object<T>(forKey key: String, as: T.Type, completion: @escaping (T?) -> ()) where T : Codable {

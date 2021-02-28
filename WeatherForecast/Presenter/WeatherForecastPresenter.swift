@@ -8,11 +8,15 @@
 import Foundation
 
 protocol WeatherForecastViewProtocol: class {
-    func showWeatherForecastData(_ data: [WeatherForecastItem])
+    func showWeatherForecastData(_ data: [WeatherForecastDisplay])
     func showError(_ errorMsg: String)
 }
 
-class WeatherForecastPresenter {
+protocol WeatherForecastPresenterProtocol {
+    func searchWeatherForecast(filterBy name: String)
+}
+
+class WeatherForecastPresenter: WeatherForecastPresenterProtocol {
     weak var view : WeatherForecastViewProtocol?
     private let provider: ProviderType
     private let cacheService: CacheService
@@ -34,7 +38,8 @@ class WeatherForecastPresenter {
             }
             if let result = result {
                 DispatchQueue.main.async {
-                    self.view?.showWeatherForecastData(result)
+                    let formattedWeatherData = result.map(self.mappingData(_:))
+                    self.view?.showWeatherForecastData(formattedWeatherData)
                 }
                 return
             }
@@ -48,18 +53,41 @@ class WeatherForecastPresenter {
             WeatherForecastService.searchWeatherForecastData(filterBy: key),
             type: WeatherForecastInfo.self
         ) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
             DispatchQueue.main.async {
                 switch result {
                 case let .success(response):
-                    self?.cacheService.setObject(response.listItems, forKey: key)
-                    self?.view?.showWeatherForecastData(response.listItems)
+                    self.cacheService.setObject(response.listItems, forKey: key)
+                    
+                    let formattedWeatherData = response.listItems.map(self.mappingData(_:))
+                    self.view?.showWeatherForecastData(formattedWeatherData)
                     
                 case let .failure(error):
-                    self?.error = error
-                    self?.view?.showError(error.localizedDescription)
+                    self.error = error
+                    self.view?.showError(error.localizedDescription)
                 }
             }
         }
+    }
+    
+    private func mappingData(_ data: WeatherForecastItem) -> WeatherForecastDisplay {
+        let timeStr = DateFormatterHelper.stringForDateInterval(
+            timeIntervalSince1970: data.dateInterval,
+            format: "EEE, dd MMM yyyy",
+            timeIntervalType: .seconds
+        )
+        let formattedDate = String(format: ConstantString.formatDateLbl, timeStr)
+        let averageTemp = Int(((data.temperature.max + data.temperature.min) / 2.0).rounded(.toNearestOrEven))
+        let formattedAverageTemp = String(format: ConstantString.formatAvgTempLbl, averageTemp)
+        let formattedPressure = String(format: ConstantString.formatPressureLbl, data.pressure)
+        let formattedHumidity = String(format: ConstantString.formatHumidityLbl, data.humidity)
+        let description = data.weatherItems.compactMap({ $0.description }).joined(separator: ", ")
+        let formattedDescription = String(format: ConstantString.formatDescriptionLbl, description)
+
+        return WeatherForecastDisplay(formattedDescription: formattedDescription, formattedPressure: formattedPressure, formattedHumidity: formattedHumidity, formattedAverageTemp: formattedAverageTemp, formattedDate: formattedDate)
     }
 }
 

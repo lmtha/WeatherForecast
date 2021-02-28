@@ -13,15 +13,15 @@ final class WeatherForecastViewController: UIViewController {
     private let searchBar = UISearchBar()
     private let errorLabel = UILabel()
     
-    private let presenter: WeatherForecastPresenter
-    var weatherData: [WeatherForecastItem] = []
+    private let presenter: WeatherForecastPresenterProtocol
+    var weatherData: [WeatherForecastDisplay] = []
     
     lazy var tapRecognizer: UITapGestureRecognizer = {
       var recognizer = UITapGestureRecognizer(target:self, action: #selector(WeatherForecastViewController.dismissKeyboard))
       return recognizer
     }()
     
-    init(presenter: WeatherForecastPresenter) {
+    init(presenter: WeatherForecastPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -167,7 +167,7 @@ extension WeatherForecastViewController: UISearchBarDelegate {
 }
 
 extension WeatherForecastViewController: WeatherForecastViewProtocol {
-    func showWeatherForecastData(_ data: [WeatherForecastItem]) {
+    func showWeatherForecastData(_ data: [WeatherForecastDisplay]) {
         self.weatherData = data
         self.tableView.isHidden = false
         self.tableView.reloadData()

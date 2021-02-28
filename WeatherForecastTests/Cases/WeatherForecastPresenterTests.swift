@@ -100,7 +100,7 @@ class WeatherForecastPresenterTests: XCTestCase {
         //then
         wait(for: [exp], timeout: 3)
         XCTAssertNotNil(mockCache.cache["Saigon"])
-        XCTAssertTrue((mockCache.cache["Saigon"] as AnyObject) is [WeatherForecastItem])
+        XCTAssertTrue((mockCache.cache["Saigon"] as AnyObject) is WeatherForecastInfo)
         XCTAssertEqual(mockView.weatherData.count, 7)
     }
 }

@@ -32,13 +32,15 @@ class WeatherForecastPresenter: WeatherForecastPresenterProtocol {
     }
     
     private func retrieveDataFromCache(_ key: String) {
-        cacheService.object(forKey: key, as: [WeatherForecastItem].self) { [weak self] result in
+        cacheService.object(forKey: key, as: WeatherForecastInfo.self) { [weak self] result in
             guard let self = self else {
                 return
             }
-            if let result = result {
+            if let result = result,
+               let expiryTime = result.expiryTime,
+               expiryTime > Date().timeIntervalSince1970 {
                 DispatchQueue.main.async {
-                    let formattedWeatherData = result.map(self.mappingData(_:))
+                    let formattedWeatherData = result.listItems.map(self.mappingData(_:))
                     self.view?.showWeatherForecastData(formattedWeatherData)
                 }
                 return
@@ -60,7 +62,8 @@ class WeatherForecastPresenter: WeatherForecastPresenterProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case let .success(response):
-                    self.cacheService.setObject(response.listItems, forKey: key)
+                    response.expiryTime = Date().timeIntervalSince1970 + 3600
+                    self.cacheService.setObject(response, forKey: key)
                     
                     let formattedWeatherData = response.listItems.map(self.mappingData(_:))
                     self.view?.showWeatherForecastData(formattedWeatherData)

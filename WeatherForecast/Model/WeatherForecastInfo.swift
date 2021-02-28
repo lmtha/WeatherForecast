@@ -9,14 +9,23 @@ import Foundation
 
 class WeatherForecastInfo: Codable {
     let listItems: [WeatherForecastItem]
+    var expiryTime: TimeInterval?
     
     enum WeatherForecastInfoKeys: String, CodingKey {
         case listItems = "list"
+        case expiryTime = "expiry_time"
     }
     
     required init(from decoder: Swift.Decoder) throws {
         let parentContainer = try decoder.container(keyedBy: WeatherForecastInfoKeys.self)
         self.listItems = try parentContainer.decode([WeatherForecastItem].self, forKey: .listItems)
+        self.expiryTime = try parentContainer.decodeIfPresent(TimeInterval.self, forKey: .expiryTime)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: WeatherForecastInfoKeys.self)
+        try container.encode(self.listItems, forKey: .listItems)
+        try container.encode(self.expiryTime, forKey: .expiryTime)
     }
 }
 
